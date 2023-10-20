@@ -6,8 +6,14 @@ import {
 } from "redux";
 
 import thunk from "redux-thunk";
-const rootReducer = combineReducers({
+import { bookReducer } from "./books/books.reducer";
+import { authReducer } from "./auth/auth.reducer";
+import { registerReducer } from "./register/register.actions";
 
+const rootReducer = combineReducers({
+    register: registerReducer,
+    auth: authReducer,
+    book: bookReducer
 });
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
