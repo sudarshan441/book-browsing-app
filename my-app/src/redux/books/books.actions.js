@@ -39,7 +39,7 @@ export const ACTION_POST_BOOKS = (data) => async (dispatch) => {
     console.log(res, "from redux actions");
 
      dispatch({ type: POST_Book_Sucess, payload: res.data });
-     dispatch(getBooks({ query: "",selectedOption: "Name",sortOrder: "asc"}))
+     dispatch(getBooks({ query: "",selectedOption: "Name",sortOrder: "asc",page:1,quantity:10}))
      
      alert("book successfully added")
   } catch (err) {

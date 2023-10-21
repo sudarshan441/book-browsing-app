@@ -6,6 +6,11 @@ const app = express.Router();
 const jwt = require("jsonwebtoken");
 const AWS = require('aws-sdk')
 const multer = require('multer');
+const nodemailer = require('nodemailer');
+
+// Create a transporter object using the default SMTP transport
+
+
 const UserModel = require("../user/user.model");
 const upload = multer({ dest: 'uploads/' });
 app.use(bodyParser.json());
@@ -69,6 +74,33 @@ app.post('/', upload.single('coverImage'), async (req, res) => {
         Genre: genre,
         Price: price
       });
+
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail', // E.g., 'Gmail', 'Outlook', 'Yahoo', etc.
+        auth: {
+          user: 'sudarshanpujari6@gmail.com', // Your email address
+          pass: process.env.GOOGLE_PASS // Your email password or an application-specific password
+        }
+      });
+      
+      // Email content
+      const mailOptions = {
+        from: 'sudarshanpujari6@gmail.com', // Sender's email address
+        to: 'sudarshanpujari812@gmail.com', // Recipient's email address
+        subject: 'Test Email',
+        text: 'This is a test email sent from Node.js using Nodemailer.'
+      };
+      
+      // Send the email
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+        } else {
+          console.log('Email sent successfully');
+          console.log('Email sent:', info.response);
+        }
+      });
+
       return res.status(200).send({ message: "ADDED", singleBook });
     } catch (er) {
       return res.status(404).send(er.message);
@@ -152,15 +184,16 @@ app.delete('/:id', async (req, res) => {
 // Search, filter, and paginate books
 // api----- /book?title=Harry%20Potter&page=2&perPage=20
 app.get('/', async (req, res) => {
-  console.log("hello")
+  
   try {
     const { name, sortBy, sortOrder, page, limit } = req.query;  
+    console.log(name, sortBy, sortOrder, page, limit )
 
     const query = {};
     if (name) {
       query.Name = { $regex: name, $options: 'i' };
     }
-console.log(query);
+
     const sortOptions = {};
     if (sortBy) {
       sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
@@ -169,20 +202,23 @@ console.log(query);
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const limitValue = parseInt(limit) || 10; // Default to 10 items per page
 
+    const totalDocuments = await bookModel.countDocuments(query); // Count total documents
+    const totalPages = Math.ceil(totalDocuments / limitValue);
+    
     const books = await bookModel
       .find(query)
       .sort(sortOptions)
       .skip(skip)
       .limit(limitValue)
       .exec();
-
-    res.json(books);
+   
+   console.log(totalPages)
+    res.json({totalPages,books});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
 });
-
 
 app.delete("/:id", async (req, res) => {
   console.log(req)

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../redux/auth/auth.actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,8 @@ const Login = () => {
   });
 
   const dispatch=useDispatch()
-
+  const { isAuth } = useSelector((store) => store.auth);
+  const navigate=useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -35,6 +36,9 @@ const Login = () => {
         password: '',});
   };
    
+  if (isAuth) {
+    navigate("/")
+  }
 
   const formStyle = {
     width: '300px',

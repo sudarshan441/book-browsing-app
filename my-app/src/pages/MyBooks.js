@@ -67,8 +67,15 @@ export default function MyBooks() {
         fontSize: '1.2rem',
         color: 'black',
     }
+    
+
+    if(!data.length){
+        return <h1>you have not added any books yet</h1>
+    }
+
 
     return (
+        
         <div style={{width:"90%",margin:"auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"10px",padding:"10px"}}>
             {data.map((book) => (<div style={cardStyle}>
                 <h3 style={titleStyle}>Name: {book.Name}</h3>

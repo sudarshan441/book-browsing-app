@@ -3,11 +3,11 @@ import BookCard from "../components/BookCard";
 import BookForm from "../components/BookForm";
 import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooks, updateQuery, updateSortBy, updateSorting } from "../redux/books/booksActions";
+import { getBooks, updatePage, updateQuantity, updateQuery, updateSortBy, updateSorting } from "../redux/books/booksActions";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { query, suggestions, selectedOption, sortOrder, books } = useSelector(
+    const { query, suggestions, selectedOption, sortOrder, books,page,quantity,totalPages } = useSelector(
         (state) => state.books
     );
 
@@ -22,11 +22,11 @@ export default function Home() {
 
     useEffect(() => {
 
-        dispatch(getBooks({ query: query,selectedOption: selectedOption,sortOrder: sortOrder}))
+        dispatch(getBooks({ query: query,selectedOption: selectedOption,sortOrder: sortOrder,page:page,quantity:quantity}))
         // Fetch suggestions and update state based on query
         // Implement your suggestion logic and sorting here
         // Update the state using actions and dispatch
-    }, [query, selectedOption, sortOrder]);
+    }, [query, selectedOption, sortOrder,page,quantity]);
 
     const handleQueryChange = (e) => {
         const newQuery = e.target.value;
@@ -40,6 +40,13 @@ export default function Home() {
     const handleSortingChange = (e) => {
         dispatch(updateSorting(e.target.value));
     };
+    const handleQuantityChange = (e) => {
+        dispatch(updateQuantity(e.target.value));
+    };
+
+    const handlePageChange =(data)=>{
+        dispatch(updatePage(data))
+    }
 
     return (
         <div style={{ width: "90%", display: "flex", justifyContent: "space-between", gap: "10px", margin: "auto" }}>
@@ -82,7 +89,7 @@ export default function Home() {
                         </select>
                     </div>
                     <div>
-                        <select style={selectStyle}>
+                        <select value={quantity} onChange={handleQuantityChange} style={selectStyle}>
                             <option value={""} style={{ fontStyle: 'italic' }}>Per Page</option>
                             <option value={10}>10</option>
                             <option value={20}>20</option>
@@ -98,7 +105,7 @@ export default function Home() {
                         <BookCard key={index} book={book} />
                     ))}
                 </div>
-                <Pagination></Pagination>
+                <Pagination totalPages={totalPages} currentPage={page} onPageChange={handlePageChange} ></Pagination>
 
             </div>
 

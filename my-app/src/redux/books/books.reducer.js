@@ -3,7 +3,10 @@ const initialState = {
   suggestions: [],
   selectedOption: 'Name',
   sortOrder: 'asc',
-  books: [], // Initial books data
+  quantity:1,
+  page:1,
+  books: [],
+  totalPages:0 // Initial books data
 };
 
 const booksReducer = (state = initialState, action) => {
@@ -11,7 +14,8 @@ const booksReducer = (state = initialState, action) => {
     case "get/book/success":
       return {
         ...state,
-        books:[...action.payload],
+        books:[...action.payload.books],
+        totalPages: action.payload.totalPages
       }
     case 'UPDATE_QUERY':
       return {
@@ -24,7 +28,7 @@ const booksReducer = (state = initialState, action) => {
         suggestions: action.suggestions,
       };
     case 'UPDATE_SORT_BY':{
-      console.log(action.selectedOption)
+     
       return {
         ...state,
         selectedOption: action.selectedOption,
@@ -35,6 +39,14 @@ const booksReducer = (state = initialState, action) => {
         ...state,
         sortOrder: action.sortOrder,
       };
+    case 'UPDATE_QUANTITY':
+      return {
+        ...state,quantity: action.quantity,
+      }
+    case 'UPDATE_PAGE':
+      return {
+        ...state,page: action.page,
+      }
     default:
       return state;
   }
