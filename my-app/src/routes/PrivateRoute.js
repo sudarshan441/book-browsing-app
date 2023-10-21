@@ -4,7 +4,8 @@ import { Navigate } from "react-router-dom";
 function PrivateRoute({ children }) {
     const { isAuth } = useSelector((store) => store.auth);
     if (!isAuth) {
-        return alert("You Need To Login First"), (<Navigate to="/login" />);
+        alert("You Need To Login First");
+        return  (<Navigate to="/login" />);
     }
     return children;
 }

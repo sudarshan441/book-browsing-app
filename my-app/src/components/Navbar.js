@@ -1,30 +1,47 @@
-  import React, { useContext, useEffect, useState } from "react";
-  import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
-  import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-   const Links = [
-      {
-        name: 'Home',
-        path: '/',
-      },
-      {
-       name: 'Books',
-       path: '/books',
-      },
-      {
+const Links = [
+    {
         name: 'MyBooks',
         path: '/mybooks',
-      },
-    
-   ];
-  
-  const Navbar = () => {
+    },
+
+];
+
+const Navbar = () => {
 
     return (
-      <div style={{width:"100%",display:"flex",justifyContent:"space-between"}}>
-      {Links.map(link=><NavLink to={link.path}>{link.name}</NavLink>)} 
-      </div>
-    )
-  };
- 
-  export default Navbar;
+        <div style={{ backgroundColor: "#3498db",boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)" }}>
+          <div style={{ width: "90%", margin: "auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h1>
+              <NavLink style={{ textDecoration: "none", color: "white", fontSize: "24px" }} to="/">BOOK FEED</NavLink>
+            </h1>
+            <div style={{ width: "40%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              
+              <div style={{ display: "flex", gap: "20px" }}>
+                {Links.map((link, index) => (
+                  <NavLink
+                    key={index}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                    to={link.path}
+                    activeStyle={{ color: "#f39c12" }}
+                   >
+                    {link.name}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+            <button>Log Out</button>
+          </div>
+        </div>
+      );
+};
+
+export default Navbar;

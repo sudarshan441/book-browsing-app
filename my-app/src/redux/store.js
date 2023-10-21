@@ -6,14 +6,18 @@ import {
 } from "redux";
 
 import thunk from "redux-thunk";
-import { bookReducer } from "./books/books.reducer";
+import  booksReducer  from "./books/books.reducer";
 import { authReducer } from "./auth/auth.reducer";
-import { registerReducer } from "./register/register.actions";
+import { registerReducer } from "./register/register.reducer";
+import { bookPostReducer } from "./books/books.post.reducer";
+import { bookDELETEReducer } from "./books/books.delete.reducer.";
 
 const rootReducer = combineReducers({
     register: registerReducer,
     auth: authReducer,
-    book: bookReducer
+    books: booksReducer,
+    bookPost:bookPostReducer,
+    bookDelete:bookDELETEReducer
 });
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

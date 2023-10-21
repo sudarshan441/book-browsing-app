@@ -4,6 +4,7 @@ const UserModel = require("./user.model");
 const app = Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const bookModel = require("../book/book.model");
 const SECRET_TOKEN = process.env.JWT_SECRET_KEY;
 
 app.get("/", async (req, res) => {
@@ -18,7 +19,7 @@ app.get("/", async (req, res) => {
 // Login Route
 app.post("/login", async (req, res) => {
 
-  const { email, password } = req.body;
+ const { email, password } = req.body;
 
  console.log(email,password)
 
@@ -95,5 +96,38 @@ app.post("/signup", async (req, res) => {
     return res.status(404).send(er.message);
   }
 });
+
+app.get('/book', async (req, res) => {
+  const { token } = req.headers
+
+  if (!token) {
+    return res.status(404).send({ message: "token is required" });
+  } else {
+    try {
+      verification = await jwt.verify(token, process.env.JWT_SECRET_KEY);
+      if (verification) {
+        userData = await UserModel.findOne({ _id: verification._id })
+        if (!userData) {
+          console.log("user data")
+         return res.status(404).send({ message: 'user not found' });
+         
+        }
+      }
+    } catch (err) {
+      return res.status(404).send({ message: err.message });
+    }
+  }
+  try{
+    let books = await bookModel.find({ user:  verification._id })
+   
+   return res.status(200).send({data: books});
+    
+  }catch (err) {
+   return  res.status(404).send({ message: err.message });
+  }
+ 
+
+});
+
 
 module.exports = app;
