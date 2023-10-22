@@ -80,4 +80,13 @@ The Book-Browsing App empowers users to:
 - **Browse and Search for Books**: Explore an extensive collection of books with ease.
 - **View Detailed Information**: Get comprehensive details about specific books.
 
+## video Link:
+
+   https://book-browsing.s3.eu-north-1.amazonaws.com/video3196508024.mp4
+
+## Deployed Link:
+
+   https://famous-daifuku-3ab17c.netlify.app/
+
+
 
