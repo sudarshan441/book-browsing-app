@@ -11,8 +11,6 @@ Welcome to the **Book-Browsing App**, a web application built with the MERN (Mon
   - [Installation](#installation)
 - [Running the App](#running-the-app)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Getting Started
 
