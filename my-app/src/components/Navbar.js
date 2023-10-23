@@ -8,6 +8,10 @@ const Links = [
         name: 'MyBooks',
         path: '/mybooks',
     },
+    {
+      name:"Video",
+      path:"/video",
+    }
 ];
 
 
@@ -34,9 +38,7 @@ const Navbar = () => {
             <h1>
               <NavLink style={{ textDecoration: "none", color: "white", fontSize: "24px" }} to="/">BOOK FEED</NavLink>
             </h1>
-            <div >            
-              <div>
-                {Links.map((link, index) => (
+              {Links.map((link, index) => (
                   <NavLink
                     key={index}
                     style={{
@@ -51,8 +53,7 @@ const Navbar = () => {
                     {link.name}
                   </NavLink>
                 ))}
-              </div>
-            </div>
+           
             <button onClick={handleLogout} style={buttonStyle}>Log Out</button>
           </div>
         </div>

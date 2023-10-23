@@ -28,7 +28,7 @@ export const ACTION_POST_BOOKS = (data) => async (dispatch) => {
 
   try {
     
-    let res = await axios.post("http://localhost:8080/book", data,
+    let res = await axios.post("https://book-zh1g.onrender.com/book", data,
       {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -53,7 +53,7 @@ export const ACTION_Delete_BOOKS = () => async (dispatch) => {
   // console.log("data")
   let token = JSON.parse(localStorage.getItem("token"));
   try {
-    let res = await axios.delete("http://localhost:8080/book",
+    let res = await axios.delete("https://book-zh1g.onrender.com/book",
       {
         headers: {
           token: token,

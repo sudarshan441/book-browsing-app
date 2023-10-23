@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const getMyBook = async (token) => {
-    return await axios.get(`http://localhost:8080/user/book`, {
+    return await axios.get(`https://book-zh1g.onrender.com/user/book`, {
         headers: {
             token: token,
         },
     });
 }
 const deleteMyBook = async (token,id) => {
-    return await axios.delete(`http://localhost:8080/book/${id}`, {
+    return await axios.delete(`https://book-zh1g.onrender.com/book/${id}`, {
         headers: {
             token: token,
         },

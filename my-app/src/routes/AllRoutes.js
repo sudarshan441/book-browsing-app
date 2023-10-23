@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import SingleBook from "../pages/SingleBook";
 import PrivateRoute from "./PrivateRoute";
 import MyBooks from "../pages/MyBooks";
+import { Video } from "../pages/Video";
 
 const AllRoutes = () => {
     return (
@@ -16,6 +17,7 @@ const AllRoutes = () => {
                 <Route path="/mybooks" element={<PrivateRoute><MyBooks /></PrivateRoute>} />
                 <Route path="/books" element={<PrivateRoute><MyBooks /></PrivateRoute>} />
                 <Route path="/book/:id" element={<PrivateRoute><SingleBook /></PrivateRoute>} />
+                <Route path="/video" element={<Video></Video>} />
             </Routes>
         </div>
     );

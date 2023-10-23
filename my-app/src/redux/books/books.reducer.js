@@ -3,7 +3,7 @@ const initialState = {
   suggestions: [],
   selectedOption: 'Name',
   sortOrder: 'asc',
-  quantity:1,
+  quantity:10,
   page:1,
   books: [],
   totalPages:0 // Initial books data

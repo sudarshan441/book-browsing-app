@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 
 const getSingleBook = async(id)=>{
-    return  await axios.get(`http://localhost:8080/book/${id}`);
+    return  await axios.get(`https://book-zh1g.onrender.com/book/${id}`);
 }
 
 export default function SingleBook(){

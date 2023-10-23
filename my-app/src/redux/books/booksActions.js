@@ -22,7 +22,7 @@ export const updateSorting = (sortOrder) => ({
 
 export const getBooks = (data) => async (dispatch) => {
     try {
-        let res = await axios.get(`http://localhost:8080/book?name=${data.query}&sortBy=${data.selectedOption}&sortOrder=${data.sortOrder}&page=${data.page}&limit=${data.quantity}`);
+        let res = await axios.get(`https://book-zh1g.onrender.com/book?name=${data.query}&sortBy=${data.selectedOption}&sortOrder=${data.sortOrder}&page=${data.page}&limit=${data.quantity}`);
         dispatch({ type: "get/book/success", payload: res.data });
     } catch (err) {
         alert(err)
